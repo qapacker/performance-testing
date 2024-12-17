@@ -1,14 +1,3 @@
-# performance-testing
-The code from my YouTube video on "How to do Performance Testing with k6"
-
-You first need to run the API which you can do in 2 ways.
-
-Using dotnet:
-```sh
-cd src
-dotnet run
-```
-
 Using Docker:
 ```sh
 docker-compose up

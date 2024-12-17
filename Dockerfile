@@ -1,20 +1,20 @@
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
-WORKDIR /app
+# Usa la imagen oficial de Node.js como base
+FROM node:16
 
-COPY src/*.csproj ./
+# Establece el directorio de trabajo dentro del contenedor
+WORKDIR /usr/src/app
 
-WORKDIR /app
-RUN dotnet restore
+# Copia el archivo package.json y package-lock.json (si existe) para instalar las dependencias
+COPY package*.json ./
 
-WORKDIR /app
-COPY src/. ./
-WORKDIR /app
-RUN dotnet publish -c Release -o out
+# Instala las dependencias de la aplicación
+RUN npm install
 
-FROM mcr.microsoft.com/dotnet/aspnet:7.0
-WORKDIR /app
-EXPOSE 5157/tcp
-ENV ASPNETCORE_URLS http://*:5157
+# Copia todo el código fuente de tu aplicación al contenedor
+COPY . .
 
-COPY --from=build /app/out ./
-ENTRYPOINT ["dotnet", "Age.dll"]
+# Expone el puerto en el que la API estará corriendo (asumiendo que usa el puerto 3000)
+EXPOSE 3000
+
+# Define el comando para iniciar la API
+CMD ["npm", "start"]

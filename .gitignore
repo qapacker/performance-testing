@@ -322,7 +322,8 @@ paket-files/
 
 # FAKE - F# Make
 .fake/
-
+.node_modules
+.Node
 # CodeRush personal settings
 .cr/personal
 

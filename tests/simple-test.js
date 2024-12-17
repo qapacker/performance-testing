@@ -6,5 +6,5 @@ export const options = {
 };
 
 export default () => {
-    http.get('http://localhost:5157/age/1990-01-01');
+    http.get('http://localhost:3000');
 };

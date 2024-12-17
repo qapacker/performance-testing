@@ -1,40 +1,24 @@
 import http from 'k6/http';
-import { sleep, check } from 'k6';
-import { SharedArray } from 'k6/data';
+import { check, sleep } from 'k6';
 
-var hostname = __ENV.HOSTNAME;
-if (hostname == null) hostname = 'localhost:5157';
+const BASE_URL = 'http://localhost:3000';
 
 export const options = {
-    stages: [
-        { duration: '1m', target: 200 }, // ramp up
-        { duration: '5m', target: 200 }, // stable
-        { duration: '1m', target: 800 }, // ramp up
-        { duration: '5m', target: 800 }, // stable
-        { duration: '1m', target: 1000 }, // ramp up
-        { duration: '5m', target: 1000 }, // stable
-        { duration: '5m', target: 0 }, // ramp-down to 0 users
-    ],
+  stages: [
+    { duration: '1m', target: 10 },  // Inicia con 10 usuarios
+    { duration: '30s', target: 1000 }, // Aumento rápido a 1000 usuarios
+    { duration: '1m', target: 1500 }, // Aumento a 1500 usuarios
+    { duration: '1m', target: 2000 }, // Aumento a 2000 usuarios (carga excesiva)
+    { duration: '1m', target: 0 },    // Reduce a 0 usuarios
+  ],
 };
 
-const dates = new SharedArray('dates', function () {
-    var dates = [];
-    var currentDate = new Date();
-    var minDate = new Date();
-    minDate.setFullYear(currentDate.getFullYear() - 100);
+export default function () {
+  const res = http.get(`${BASE_URL}/api/users`);
+  
+  check(res, {
+    'is status 200': (r) => r.status === 200,
+  });
 
-    for (var i = 0; i < 100; i++) {
-        var randomTime = Math.random() * (currentDate.getTime() - minDate.getTime());
-        var randomDate = new Date(minDate.getTime() + randomTime);
-        dates.push(randomDate.toISOString());
-    }
-
-    return dates;
-});
-
-export default () => {
-    const randomDate = dates[Math.floor(Math.random() * dates.length)];
-    const res = http.get(`http://${hostname}/age/${randomDate}`);
-    check(res, { '200': (r) => r.status === 200 });
-    sleep(1);
-};
+  sleep(1);
+}

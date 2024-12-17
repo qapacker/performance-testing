@@ -1,7 +1,31 @@
-version: '3.3'
-
+version: '3'
 services:
+  db:
+    image: mongo:latest
+    container_name: mongo-db
+    ports:
+      - "27017:27017"
+    networks:
+      - app-network
+    volumes:
+      - mongo-data:/data/db
+
   api:
     build: .
+    container_name: api-server
     ports:
-      - 5157:5157
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      MONGO_URI: mongodb://db:27017/mi_base_de_datos
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mongo-data:
+
