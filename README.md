@@ -7,14 +7,13 @@ Este proyecto es una API sencilla creada con Node.js, Express y MongoDB para gen
 - Generación de datos aleatorios para usuarios (nombre, correo electrónico y edad).
 - Pruebas de rendimiento como carga, estrés, picos y más, utilizando K6.
 - Integración sencilla y despliegue a través de Docker.
-- Compatibilidad con [QAPacker](https://qapacker.com/), una plataforma interactiva para aprender y practicar pruebas con K6.
 
 ---
 
 ## Proyecto Interactivo: QAPacker
 Este proyecto forma parte de la iniciativa [QAPacker](https://qapacker.com/), una plataforma educativa diseñada para enseñar herramientas de pruebas modernas como K6. Con QAPacker, puedes:
 
-- Aprender los conceptos básicos y avanzados de K6 mediante ejercicios interactivos.
+- Aprender los conceptos básicos y avanzados de K6.
 - Ejecutar pruebas de rendimiento en entornos controlados y reales.
 - Analizar resultados de pruebas con retroalimentación inmediata.
 - Explorar estrategias avanzadas como pruebas de estrés, carga y estabilidad prolongada.
