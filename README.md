@@ -26,6 +26,8 @@ Aprovecha esta plataforma como un recurso integral para mejorar tus habilidades 
 ## Requisitos Previos
 1. Tener instalado [Docker](https://www.docker.com/) y [Docker Compose](https://docs.docker.com/compose/).
 2. Tener instalado [K6](https://k6.io/) para ejecutar las pruebas de rendimiento.
+3. tener instalado node verifica los node_modules 
+4. tener instalado dotenv para reconocer variables de entorno 
 
 ---
 
